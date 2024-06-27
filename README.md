@@ -4,7 +4,7 @@ This is a software that allows you to execute some root commands on a remote ser
 ## How to use
 ### Install dependencies
 First of all, you need to install the dependencies for both client and server.
-If you don't have access to the server, you may need to contact the person responsible of the server to start the program.
+If you don't have access to the server you may need to contact the person responsible of the server to start and configure the program.
 
 #### Install dependencies on Windows
 1. Make sure you have Python and Git installed on your system (recommended Python 3.12).
@@ -38,7 +38,7 @@ git clone https://github.com/alcoftTAO/Remote-Server-Commander.git
 cd Remote-Server-Commander
 ```
 
-5. Make sure you have pip installed. If you don't, install it using your package manager.
+5. Make sure you have PIP installed. If you don't, install it using your package manager.
 6. Install the Python requirements executing:
 ```sh
 pip install -r requirements.txt
@@ -51,7 +51,7 @@ pip install -r requirements.txt
 
 ### Set the server
 You need to execute the `Server.py` script on your server with root access.
-If you want the server to automatically start, you can use `systemd`:
+If you want the server to automatically start the script, you can use `systemd`:
 1. Create a systemd service:
 ```sh
 sudo vim /etc/systemd/system/rsc.service
