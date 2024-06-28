@@ -4,6 +4,7 @@ import os
 import base64
 import asyncio
 import json
+import traceback
 
 Ip: str = ""
 Password: str = ""
@@ -20,6 +21,8 @@ async def ConnectToServer() -> bool:
         return True
     except Exception as ex:
         print("Error! Could not connect to the server (details: " + str(ex) + ").")
+        traceback.print_exc()
+        
         return False
 
 async def SendCommand(Cmd: str) -> str | int:
