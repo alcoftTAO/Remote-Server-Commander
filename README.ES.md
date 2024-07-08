@@ -88,7 +88,7 @@ sudo systemctl enable rsc.service
 
 4. Inicia el servicio:
 ```sh
-sudo systemctl start rsc.servicio
+sudo systemctl start rsc.service
 ```
 
 5. ¡Listo!
