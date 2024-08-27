@@ -10,11 +10,11 @@ Ip: str = ""
 Password: str = ""
 UseTerminal: bool = False
 Command: str = ""
-CSocket: websockets.WebSocketClientProtocol = None
+CSocket: websockets.WebSocketClientProtocol | None = None
 
 async def ConnectToServer() -> bool:
     global CSocket
-    CSocket = None
+    await DisconnectFromServer()
 
     try:
         CSocket = await websockets.connect("ws://" + Ip + ":19380")
@@ -24,6 +24,17 @@ async def ConnectToServer() -> bool:
         traceback.print_exc()
         
         return False
+
+async def DisconnectFromServer() -> None:
+    global CSocket
+
+    if (CSocket != None):
+        try:
+            await CSocket.close()
+        except:
+            pass
+
+        CSocket = None
 
 async def SendCommand(Cmd: str) -> str | int:
     if (CSocket == None):
@@ -50,6 +61,8 @@ async def SendCommand(Cmd: str) -> str | int:
 async def ProcessResponse() -> None:
     response = await SendCommand(Command)
 
+    print("----------------------------------------------------")
+
     if (type(response) == int):
         if (response == 0):
             print("Command executed successfully OwO.")
@@ -69,6 +82,8 @@ async def ProcessResponse() -> None:
             response = str(response)
         
         print("Server response: " + response)
+    
+    print("----------------------------------------------------")
 
 for arg in sys.argv:
     if (sys.argv.index(arg) == 0):
@@ -134,3 +149,5 @@ if (UseTerminal):
         loop.run_until_complete(ProcessResponse())
 else:
     loop.run_until_complete(ProcessResponse())
+    
+loop.run_until_complete(DisconnectFromServer())
